@@ -6,30 +6,46 @@ import { buildSchema } from 'type-graphql'
 import { AppDataSource } from './data-source'
 import { User } from './models/User'
 import { UserResolver } from './resolvers/UserResolver'
+import { Salesman } from './models/Salesman'
+import { Branch } from './models/Branch'
+import AddQuery from './middlewares/AddQuery'
+import BranchResolver from './resolvers/BranchResolver'
 
 async function main(){
   await AppDataSource.initialize().then(async () => {
     // TODO DELETE THIS
-    console.log('Inserting a new user into the database...')
+    console.log('Inserting dummy data')
+    // --
     const user = new User()
     user.firstName = 'Timber'
     user.lastName = 'Saw'
     user.age = 25
     await AppDataSource.manager.save(user)
-    console.log('Saved a new user with id: ' + user.id)
+    // --
+    const branch = new Branch()
+    branch.code = '001'
+    branch.name = 'Branch 1'
+    await AppDataSource.manager.save(branch)
+    // --
+    const salesman = new Salesman()
+    salesman.name = 'Salesman 1'
+    salesman.branch = branch
+    await AppDataSource.manager.save(salesman)
 
-    console.log('Loading users from the database...')
-    const users = await AppDataSource.manager.find(User)
-    console.log('Loaded users: ', users)
 
     console.log('Here you can setup and run express / fastify / any other framework.')
 
   }).catch(error => console.log(error))
 
+  // TODO: autoimport from resolvers
   const schema = await buildSchema({
-    resolvers: [UserResolver]
+    resolvers: [UserResolver, BranchResolver],
+    globalMiddlewares: [AddQuery]
   })
-  const server = new ApolloServer({ schema })
+
+  const server = new ApolloServer({
+    schema
+  })
   await server.listen(process.env.PORT || 4000)
   console.log('Server has started!')
 }
