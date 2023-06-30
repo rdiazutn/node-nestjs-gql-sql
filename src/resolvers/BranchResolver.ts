@@ -6,9 +6,10 @@ import { Salesman } from "../models/Salesman";
 @Resolver(of => Branch)
 export default class BranchResolver implements ResolverInterface<Branch> {
 
+  // TODO: Query to filter subattribute salesmans by id
   @FieldResolver()
-  async salesmans(@Root() branch: Branch, @Arg('id', { nullable: true }) id: string) {
-    const items = await Salesman.find({
+  salesmans(@Root() branch: Branch, @Arg('id', { nullable: true }) id: string) {
+    return Salesman.find({
       where: {
         branch: {
           id: branch.id
@@ -16,8 +17,6 @@ export default class BranchResolver implements ResolverInterface<Branch> {
         ...(id && { id })
       }
     })
-    console.log(items)
-    return items
   }
 
   @Query(() => [Branch])
