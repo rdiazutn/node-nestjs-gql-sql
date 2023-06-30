@@ -1,10 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne } from 'typeorm'
 import { ObjectType, Field, ID } from 'type-graphql'
 import { Salesman } from './Salesman'
+import { SaleDetail } from './SaleDetail'
 
 @Entity()
 @ObjectType()
-export class Branch extends BaseEntity {
+export class Sale extends BaseEntity {
 
     @Field(() => ID)
     @PrimaryGeneratedColumn()
@@ -18,13 +19,12 @@ export class Branch extends BaseEntity {
     @Column()
     name: string
 
-    @OneToMany(() => Salesman, salesman => salesman.branch)
-    @Field(() => [Salesman])
-    salesmans: Salesman[]
-
+    @ManyToOne(() => Salesman, salesman => salesman.sales)
+    @Field(() => Salesman)
+    salesman: Salesman  
     
-    @Field(() => Branch)
-    @ManyToOne(() => Branch)
-    branch: Branch
+    @OneToMany(() => SaleDetail, detail => detail.sale)
+    @Field(() => [SaleDetail])
+    saleDetails: SaleDetail[]
 
 }

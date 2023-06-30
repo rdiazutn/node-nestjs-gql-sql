@@ -17,9 +17,8 @@ async function main(){
     console.log('Inserting dummy data')
     // --
     const user = new User()
-    user.firstName = 'Timber'
-    user.lastName = 'Saw'
-    user.age = 25
+    user.username = 'Timber'
+    user.password = 'Saw'
     await AppDataSource.manager.save(user)
     // --
     const branch = new Branch()
