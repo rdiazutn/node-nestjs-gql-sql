@@ -3,8 +3,8 @@ dotenv.config()
 import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
 import { buildSchema } from 'type-graphql'
-import express from 'express';
-import http from 'http';
+import express from 'express'
+import http from 'http'
 import { UserResolver } from './resolvers/UserResolver'
 import BranchResolver from './resolvers/BranchResolver'
 import { json } from 'body-parser'
@@ -60,11 +60,11 @@ const insertDummyData = async () => {
   // --
   const existingUser = await User.findOneBy({ username: 'rdiaz' })
   if (!existingUser) {
-      const user = new User()
-      user.username = 'rdiaz'
-      user.password = '1234'
-      user.role = Roles.ADMIN
-      await user.save()
+    const user = new User()
+    user.username = 'rdiaz'
+    user.password = '1234'
+    user.role = Roles.ADMIN
+    await user.save()
   }
   // --
   const branch = new Branch()

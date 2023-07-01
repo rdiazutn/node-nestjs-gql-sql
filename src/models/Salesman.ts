@@ -9,18 +9,18 @@ export class Salesman extends BaseEntity {
 
     @Field(() => ID)
     @PrimaryGeneratedColumn()
-    id: string
+      id: string
 
     @Field(() => String)
     @Column()
-    name: string
+      name: string
 
     @Field(() => Branch)
     @ManyToOne(() => Branch, branch => branch.salesmans)
-    branch: Branch
+      branch: Branch
 
     @OneToMany(() => Sale, sale => sale.salesman)
     @Field(() => [Sale])
-    sales: Sale[]
+      sales: Sale[]
 
 }

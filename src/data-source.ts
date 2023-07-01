@@ -8,19 +8,19 @@ import { SaleDetail } from './models/SaleDetail'
 import { Product } from './models/Product'
 
 export const AppDataSource = new DataSource({
-    type: 'sqlite',
-    database: 'src/data/db.sqlite3',
-    synchronize: true,
-    logging: false,
-    entities: [
-        User,
-        Salesman,
-        Branch,
-        Sale,
-        SaleDetail,
-        Product
-    ],
-    migrations: [],
-    subscribers: [],
+  type: 'sqlite',
+  database: 'src/data/db.sqlite3',
+  synchronize: true,
+  logging: false,
+  entities: [
+    User,
+    Salesman,
+    Branch,
+    Sale,
+    SaleDetail,
+    Product
+  ],
+  migrations: [],
+  subscribers: [],
 })
 // TODO: autoimport from models

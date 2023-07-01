@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const publicKey = Buffer.from(process.env.JWT_PUBLIC_KEY,'base64').toString('ascii');
+const publicKey = Buffer.from(process.env.JWT_PUBLIC_KEY,'base64').toString('ascii')
 const privateKey = Buffer.from(process.env.JWT_PRIVATE_KEY,'base64').toString('ascii')
 
 export function signJwt(object: string, options?: jwt.SignOptions | undefined) {

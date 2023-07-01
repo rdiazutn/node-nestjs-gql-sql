@@ -8,23 +8,23 @@ export class Branch extends BaseEntity {
 
     @Field(() => ID)
     @PrimaryGeneratedColumn()
-    id: string
+      id: string
 
     @Field(() => String)
     @Column()
-    code: string
+      code: string
 
     @Field(() => String)
     @Column()
-    name: string
+      name: string
 
     @OneToMany(() => Salesman, salesman => salesman.branch)
     @Field(() => [Salesman])
-    salesmans: Salesman[]
+      salesmans: Salesman[]
 
     
     @Field(() => Branch)
     @ManyToOne(() => Branch)
-    branch: Branch
+      branch: Branch
 
 }

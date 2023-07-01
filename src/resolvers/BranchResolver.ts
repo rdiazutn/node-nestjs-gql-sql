@@ -1,6 +1,6 @@
-import { Arg, FieldResolver, Query, Resolver, ResolverInterface, Root } from "type-graphql";
-import { Branch } from "../models/Branch";
-import { Salesman } from "../models/Salesman";
+import { Arg, FieldResolver, Query, Resolver, ResolverInterface, Root } from 'type-graphql'
+import { Branch } from '../models/Branch'
+import { Salesman } from '../models/Salesman'
 
 
 @Resolver(_of => Branch)

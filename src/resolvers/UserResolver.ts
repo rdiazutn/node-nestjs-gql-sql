@@ -1,5 +1,5 @@
 import { Resolver, Query, Ctx, Mutation, Arg, Authorized } from 'type-graphql'
-import { LoginInput, User } from '../models/User';
+import { LoginInput, User } from '../models/User'
 import Context from '../types/global/Context'
 import bcrypt from 'bcrypt'
 import { signJwt } from '../security/Jwt'
@@ -44,7 +44,7 @@ export class UserResolver {
     return context.user
   }
 
-  @Authorized("ADMIN")
+  @Authorized('ADMIN')
   @Query(() => [User])
   users() {
     return User.find()

@@ -8,39 +8,39 @@ export class User extends BaseEntity {
 
     @Field(() => ID)
     @PrimaryGeneratedColumn()
-    id: string
+      id: string
 
     @Field(() => String)
     @Column()
-    username: string
+      username: string
 
     @Field(() => String)
     @Column({ default: 'USER' })
-    role: string
+      role: string
 
     @Column()
-    password: string
+      password: string
 
     @Column({ nullable: true })
-    token: string
+      token: string
 
     @BeforeInsert()
     async beforeInsert() {
-        const salt = await bcrypt.genSalt(10)
-        this.password = bcrypt.hashSync(this.password, salt)
+      const salt = await bcrypt.genSalt(10)
+      this.password = bcrypt.hashSync(this.password, salt)
     }
 
     toString () {
-        delete this.password
-        return JSON.stringify(this)
+      delete this.password
+      return JSON.stringify(this)
     }
 }
 
 @InputType()
 export class LoginInput {
   @Field(() => String)
-  username: string;
+    username: string
 
   @Field(() => String)
-  password: string;
+    password: string
 }
