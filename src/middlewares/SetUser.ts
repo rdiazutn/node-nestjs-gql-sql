@@ -2,15 +2,14 @@ import Context from '../types/global/Context'
 import { User } from '../models/User'
 import { verifyJwt } from '../security/Jwt'
 
-const SetUser =  (ctx)=> {
+const SetUser =  (ctx: any, ..._args): Promise<Context> => {
   const context  = ctx as Context
-  console.log('----SetUser---')
   const accessToken = context.req.cookies?.accessToken
   if (accessToken) {
     const user = verifyJwt<User>(accessToken)
     context.user = user
   }
-  return context
+  return Promise.resolve(context)
 }
 
 export default SetUser

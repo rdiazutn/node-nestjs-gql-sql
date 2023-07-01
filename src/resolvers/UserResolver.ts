@@ -36,4 +36,9 @@ export class UserResolver {
     })
     return token
   }
+
+  @Query(() => User)
+  async me(@Ctx() context: Context) {
+    return context.user
+  }
 }

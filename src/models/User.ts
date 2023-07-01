@@ -24,6 +24,7 @@ export class User extends BaseEntity {
     }
 
     toString () {
+        delete this.password
         return JSON.stringify(this)
     }
 }
