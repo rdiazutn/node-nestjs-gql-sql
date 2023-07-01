@@ -15,6 +15,7 @@ import { Salesman } from './models/Salesman'
 import cookieParser from 'cookie-parser'
 import SetUser from './middlewares/SetUser'
 import Context from './types/global/Context'
+import { AuthorizationChecker } from './middlewares/AuthorizationChecker'
 
 async function main(){
   // Start TYPEORM data source
@@ -26,6 +27,7 @@ async function main(){
   // TODO: autoimport from resolvers
   const schema = await buildSchema({
     resolvers: [UserResolver, BranchResolver],
+    authChecker: AuthorizationChecker
   })
   const server = new ApolloServer<Context>({
     schema

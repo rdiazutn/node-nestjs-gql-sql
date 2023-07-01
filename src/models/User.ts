@@ -17,6 +17,9 @@ export class User extends BaseEntity {
     @Column()
     password: string
 
+    @Column({ nullable: true })
+    token: string
+
     @BeforeInsert()
     async beforeInsert() {
         const salt = await bcrypt.genSalt(10)

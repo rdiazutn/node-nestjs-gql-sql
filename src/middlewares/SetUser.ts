@@ -8,6 +8,7 @@ const SetUser =  (ctx: any, ..._args): Promise<Context> => {
   if (accessToken) {
     const user = verifyJwt<User>(accessToken)
     context.user = user
+    context.token = accessToken
   }
   return Promise.resolve(context)
 }
