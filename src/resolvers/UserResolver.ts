@@ -14,8 +14,7 @@ export class UserResolver {
   @Mutation(() => String) // Returns the JWT
   async login(@Arg('input') input: LoginInput, @Ctx() context: Context) {
     const loginError = 'Invalid username or password'
-    const { username, password } = input
-    const user = await User.findOne({ where: { username } })
+    const user = await User.findOne({ where: { username: input.username } })
     console.log(user)
     if (!user) {
       throw new Error(loginError)

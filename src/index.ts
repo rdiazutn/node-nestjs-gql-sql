@@ -9,20 +9,21 @@ import { UserResolver } from './resolvers/UserResolver'
 import { Salesman } from './models/Salesman'
 import { Branch } from './models/Branch'
 import BranchResolver from './resolvers/BranchResolver'
+import CookieParser from './middlewares/CookieParser'
+import SetUser from './middlewares/SetUser'
 
 async function main(){
   await AppDataSource.initialize().then(async () => {
     // TODO DELETE THIS
     console.log('Inserting dummy data')
     // --
-    User.find().then((users) => {
-      if (users.length === 0 ){
+    const existingUser = await User.findOneBy({ username: 'rdiaz' })
+    if (!existingUser) {
         const user = new User()
         user.username = 'rdiaz'
         user.password = '1234'
-        user.save()
-      }
-    })
+        await user.save()
+    }
     // --
     const branch = new Branch()
     branch.code = '001'
@@ -44,8 +45,11 @@ async function main(){
     resolvers: [UserResolver, BranchResolver],
   })
 
+  const contextMiddlewares = [CookieParser, SetUser]
+
   const server = new ApolloServer({
-    schema
+    schema,
+    context: (context) => contextMiddlewares.reduce((ctx, middleware) => middleware(ctx), context)
   })
   await server.listen(process.env.PORT || 4000)
   console.log('Server has started!')
