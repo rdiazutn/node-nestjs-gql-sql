@@ -1,4 +1,4 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
 dotenv.config()
 import { ApolloServer } from '@apollo/server'
 import { expressMiddleware } from '@apollo/server/express4'
@@ -47,8 +47,10 @@ async function main(){
     }),
   )
 
-  await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log('Server has started!')
+  await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve))
+  console.log('\x1b[46m                   \x1b[0m')
+  console.log('\x1b[92m Server has started! \x1b[0m')
+  console.log('\x1b[46m                   \x1b[0m')
 }
 
 main()

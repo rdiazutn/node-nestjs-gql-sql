@@ -3,7 +3,7 @@ import { Branch } from "../models/Branch";
 import { Salesman } from "../models/Salesman";
 
 
-@Resolver(of => Branch)
+@Resolver(_of => Branch)
 export default class BranchResolver implements ResolverInterface<Branch> {
 
   // TODO: Query to filter subattribute salesmans by id
