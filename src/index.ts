@@ -16,6 +16,7 @@ import cookieParser from 'cookie-parser'
 import SetUser from './middlewares/SetUser'
 import Context from './types/global/Context'
 import { AuthorizationChecker } from './middlewares/AuthorizationChecker'
+import { Roles } from './security/Roles'
 
 async function main(){
   // Start TYPEORM data source
@@ -60,6 +61,7 @@ const insertDummyData = async () => {
       const user = new User()
       user.username = 'rdiaz'
       user.password = '1234'
+      user.role = Roles.ADMIN
       await user.save()
   }
   // --

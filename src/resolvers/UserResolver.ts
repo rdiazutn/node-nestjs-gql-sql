@@ -43,4 +43,10 @@ export class UserResolver {
   async me(@Ctx() context: Context) {
     return context.user
   }
+
+  @Authorized("ADMIN")
+  @Query(() => [User])
+  users() {
+    return User.find()
+  }
 }

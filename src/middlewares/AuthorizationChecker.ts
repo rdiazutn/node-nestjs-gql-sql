@@ -14,6 +14,10 @@ export class AuthorizationChecker implements AuthCheckerInterface<Context> {
     if (!existingUser) {
       return false
     }
+    console.log (existingUser, roles)
+    if (roles.length !== 0 && !roles.includes(existingUser.role)) {
+      return false
+    }
     
     return true
   }

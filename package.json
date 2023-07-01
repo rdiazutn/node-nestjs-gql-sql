@@ -24,9 +24,6 @@
       "typeorm": "^0.3.17"
    },
    "scripts": {
-      "start": "ts-node src/index.ts",
-      "dev": "nodemon -w src --ext ts --exec ts-node src/index.ts",
-      "compile": "tsc",
-      "start2": "npm run compile && node ./dist/index.js"
+      "dev": "nodemon -w src --ext ts --exec ts-node src/index.ts"
    }
 }
