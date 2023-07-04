@@ -1,8 +1,8 @@
 import { Resolver, Query, Ctx, Mutation, Arg, Authorized } from 'type-graphql'
 import { LoginInput, User } from '../models/User'
-import Context from '../types/global/Context'
+import Context from '../../../types/global/Context'
 import bcrypt from 'bcrypt'
-import { signJwt } from '../security/Jwt'
+import { signJwt } from '../../../security/Jwt'
 
 @Resolver()
 export class UserResolver {

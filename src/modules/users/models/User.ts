@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, BeforeInsert } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, BeforeInsert, OneToOne } from 'typeorm'
 import { ObjectType, Field, ID, InputType } from 'type-graphql'
 import bcrypt from 'bcrypt'
+import { Salesman } from '../../sales/models/Salesman'
 
 @Entity()
 @ObjectType()
@@ -23,6 +24,10 @@ export class User extends BaseEntity {
 
     @Column({ nullable: true })
       token: string
+
+    @OneToOne(() => Salesman, salesman => salesman.user)
+    @Field(() => Salesman)
+      salesman: Salesman
 
     @BeforeInsert()
     async beforeInsert() {

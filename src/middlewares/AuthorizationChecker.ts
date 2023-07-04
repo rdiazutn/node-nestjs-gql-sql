@@ -1,6 +1,6 @@
 import { AuthCheckerInterface, ResolverData } from 'type-graphql'
 import Context from '../types/global/Context'
-import { User } from '../models/User'
+import { User } from '../modules/users/models/User'
 
 export class AuthorizationChecker implements AuthCheckerInterface<Context> {
   async check({ root, args, context, info }: ResolverData<Context>, roles: string[]) {

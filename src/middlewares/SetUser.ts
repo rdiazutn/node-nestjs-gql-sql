@@ -1,5 +1,5 @@
 import Context from '../types/global/Context'
-import { User } from '../models/User'
+import { User } from '../modules/users/models/User'
 import { verifyJwt } from '../security/Jwt'
 
 const SetUser =  (ctx: any, ..._args): Promise<Context> => {

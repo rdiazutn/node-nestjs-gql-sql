@@ -12,6 +12,15 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
-      "strictPropertyInitialization": false
+      "strictPropertyInitialization": false,
+      "paths": {
+         "@sales/*": [
+            "sales/*"
+         ],
+         "@users/*": [
+            "users/*"
+         ],
+      },
+      "baseUrl": "./src"
    }
 }
