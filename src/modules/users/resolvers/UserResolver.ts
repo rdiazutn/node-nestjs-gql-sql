@@ -1,11 +1,14 @@
 import { Resolver, Query, Ctx, Mutation, Arg, Authorized } from 'type-graphql'
 import { LoginInput, User } from '../models/User'
 import Context from '../../../types/global/Context'
-import bcrypt from 'bcrypt'
-import { signJwt } from '../../../security/Jwt'
+import UserService from '../services/UserService'
 
 @Resolver()
 export class UserResolver {
+  constructor(private userService: UserService) {
+    this.userService = new UserService()
+  }
+
   @Query(() => String)
   hello() {
     return 'world'
@@ -13,19 +16,7 @@ export class UserResolver {
 
   @Mutation(() => String) // Returns the JWT
   async login(@Arg('input') input: LoginInput, @Ctx() context: Context) {
-    const loginError = 'Invalid username or password'
-    const user = await User.findOne({ where: { username: input.username } })
-    if (!user) {
-      throw new Error(loginError)
-    }
-    const passwordIsValid = await bcrypt.compare(input.password, user.password)
-    if (!passwordIsValid) {
-      throw new Error(loginError)
-    }
-    // TODO: move to Redis
-    const token = signJwt(user.toString())
-    user.token = token
-    await user.save()
+    const token = await this.userService.login(input)
     // set a cookie for the jwt
     context.res.cookie('accessToken', token, {
       maxAge: 3.154e10, // 1 year
@@ -47,6 +38,6 @@ export class UserResolver {
   @Authorized('ADMIN')
   @Query(() => [User])
   users() {
-    return User.find()
+    return this.userService.getUsers()
   }
 }

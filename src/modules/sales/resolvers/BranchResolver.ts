@@ -1,10 +1,15 @@
-import { Arg, FieldResolver, Query, Resolver, ResolverInterface, Root } from 'type-graphql'
+import { Arg, Authorized, FieldResolver, Mutation, Query, Resolver, ResolverInterface, Root } from 'type-graphql'
 import { Salesman } from '../models/Salesman'
-import { Branch } from '../models/Branch'
+import { Branch, BranchInput } from '../models/Branch'
+import BranchService from '../services/BranchService'
 
 
 @Resolver(_of => Branch)
 export default class BranchResolver implements ResolverInterface<Branch> {
+
+  constructor(private branchService: BranchService) {
+    this.branchService = new BranchService()
+  }
 
   // TODO: Query to filter subattribute salesmans by id
   @FieldResolver()
@@ -21,6 +26,13 @@ export default class BranchResolver implements ResolverInterface<Branch> {
 
   @Query(() => [Branch])
   branchs() {
-    return Branch.find()
+    return this.branchService.getBranches()
+  }
+
+
+  @Authorized('ADMIN')
+  @Mutation(() => Branch) // Returns the JWT
+  async createBranch(@Arg('input') input: BranchInput) {
+    return this.branchService.create(input)
   }
 }

@@ -17,6 +17,7 @@ import Context from './types/global/Context'
 import { AuthorizationChecker } from './middlewares/AuthorizationChecker'
 import { Roles } from './security/Roles'
 import { Branch } from './modules/sales/models/Branch'
+import { Sale } from 'modules/sales/models/Sale'
 
 async function main(){
   // Start TYPEORM data source
