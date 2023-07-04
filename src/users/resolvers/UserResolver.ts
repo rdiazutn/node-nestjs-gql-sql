@@ -26,7 +26,6 @@ export class UserResolver {
     @Args('input') input: LoginInput,
     @Context() context: GraphQLExecutionContext,
   ) {
-    console.log(context);
     const token = await this.userService.login(input);
     // set a cookie for the jwt
     context['res'].cookie('accessToken', token, {
@@ -42,7 +41,8 @@ export class UserResolver {
 
   @UseGuards(AuthorizeGuard, new RolesGuard(['ADMIN']))
   @Query(() => [User])
-  users() {
+  users(@Context() context: GraphQLExecutionContext) {
+    console.log(context['user']);
     return this.userService.findAll();
   }
 }

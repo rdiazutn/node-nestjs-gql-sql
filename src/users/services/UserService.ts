@@ -9,6 +9,7 @@ export default class UserService {
     await User.create({
       username: 'admin',
       password: 'admin',
+      role: 'ADMIN',
     }).save();
     const user = await User.findOne({ where: { username: input.username } });
     if (!user) {
