@@ -1,8 +1,13 @@
 import * as bcrypt from 'bcrypt';
 import { signJwt } from '../security/Jwt';
 import { LoginInput, User } from '../models/User.entity';
+import { Inject } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 export default class UserService {
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
+
   async login(input: LoginInput): Promise<string> {
     const loginError = 'Invalid username or password';
     // TODO: REMVOE
@@ -23,6 +28,7 @@ export default class UserService {
     const token = signJwt(user.toString());
     user.token = token;
     await user.save();
+    await this.cacheManager.set(token, user);
     return token;
   }
 
