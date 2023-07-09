@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { BranchResolver } from './resolvers/BranchResolver';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-import { BranchService } from './services/BranchService';
+import { Module } from '@nestjs/common'
+import { BranchResolver } from './resolvers/BranchResolver'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import { BranchService } from './services/BranchService'
 
 // TODO: add global guard
 @Module({

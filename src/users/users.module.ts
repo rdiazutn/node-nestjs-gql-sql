@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
-import { UserResolver } from './resolvers/UserResolver';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { GraphQLModule } from '@nestjs/graphql';
-import UserService from './services/UserService';
+import { Module } from '@nestjs/common'
+import { UserResolver } from './resolvers/UserResolver'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { GraphQLModule } from '@nestjs/graphql'
+import UserService from './services/UserService'
 
 @Module({
   imports: [

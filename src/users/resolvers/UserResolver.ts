@@ -1,16 +1,10 @@
-import {
-  Args,
-  Context,
-  GraphQLExecutionContext,
-  Mutation,
-  Query,
-  Resolver,
-} from '@nestjs/graphql';
-import { LoginInput, User } from '../models/User.entity';
-import UserService from '../services/UserService';
-import { Inject, UseGuards } from '@nestjs/common';
-import { AuthorizeGuard } from 'src/guards/AuthorizeGuard';
-import { RolesGuard } from 'src/guards/RolesGuard';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { LoginInput, User } from '../models/User.entity'
+import UserService from '../services/UserService'
+import { Inject, UseGuards } from '@nestjs/common'
+import { AuthorizeGuard } from 'src/guards/AuthorizeGuard'
+import { RolesGuard } from 'src/guards/RolesGuard'
+import { GraphqlApplicationContext } from '../security/GraphqlApplicationContext'
 
 @Resolver()
 export class UserResolver {
@@ -18,15 +12,15 @@ export class UserResolver {
 
   @Query(() => String)
   test() {
-    return 'hi';
+    return 'hi'
   }
 
   @Mutation(() => String) // Returns the JWT
   async login(
     @Args('input') input: LoginInput,
-    @Context() context: GraphQLExecutionContext,
+    @Context() context: GraphqlApplicationContext,
   ) {
-    const token = await this.userService.login(input);
+    const token = await this.userService.login(input)
     // set a cookie for the jwt
     context['res'].cookie('accessToken', token, {
       maxAge: 3.154e10, // 1 year
@@ -35,14 +29,14 @@ export class UserResolver {
       path: '/',
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
-    });
-    return token;
+    })
+    return token
   }
 
   @UseGuards(AuthorizeGuard, new RolesGuard(['ADMIN']))
   @Query(() => [User])
-  users(@Context() context: GraphQLExecutionContext) {
-    console.log(context['user']);
-    return this.userService.findAll();
+  users(@Context() context: GraphqlApplicationContext) {
+    console.log(context['user'])
+    return this.userService.findAll()
   }
 }
