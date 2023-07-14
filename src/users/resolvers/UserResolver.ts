@@ -25,7 +25,7 @@ export class UserResolver {
     context['res'].cookie('accessToken', token, {
       maxAge: 3.154e10, // 1 year
       httpOnly: true,
-      domain: 'localhost',
+      domain: '127.0.0.1',
       path: '/',
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -35,8 +35,7 @@ export class UserResolver {
 
   @UseGuards(AuthorizeGuard, new RolesGuard(['ADMIN']))
   @Query(() => [User])
-  users(@Context() context: GraphqlApplicationContext) {
-    console.log(context['user'])
+  users() {
     return this.userService.findAll()
   }
 }

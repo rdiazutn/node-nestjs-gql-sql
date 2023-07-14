@@ -15,6 +15,7 @@ const cacheModule = CacheModule.register()
       type: 'sqlite',
       database: ':memory:',
       entities: ['dist/**/*.entity{.ts,.js}'],
+      logging: true,
       synchronize: true,
     }),
     CachingModule,

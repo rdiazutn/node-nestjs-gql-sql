@@ -4,35 +4,35 @@ import {
   Column,
   BaseEntity,
   OneToMany,
-} from 'typeorm';
-import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
-import { Salesman } from './Salesman.entity';
+} from 'typeorm'
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql'
+import { Salesman } from './Salesman.entity'
 
 @Entity()
 @ObjectType()
 export class Branch extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number
 
   @Field(() => String)
-  @Column()
-  code: string;
+  @Column({ unique: true, nullable: false })
+  code: string
 
   @Field(() => String)
-  @Column()
-  name: string;
+  @Column({ nullable: false })
+  name: string
 
   @OneToMany(() => Salesman, (salesman) => salesman.branch)
   @Field(() => [Salesman])
-  salesmans: Salesman[];
+  salesmans: Salesman[]
 }
 
 @InputType()
 export class BranchInput {
   @Field(() => String)
-  code: string;
+  code: string
 
-  @Field(() => String)
-  name: string;
+  @Field(() => String, { nullable: true })
+  name: string
 }

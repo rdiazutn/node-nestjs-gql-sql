@@ -10,7 +10,7 @@ export default class UserService {
 
   async login(input: LoginInput): Promise<string> {
     const loginError = 'Invalid username or password'
-    // TODO: REMVOE
+    // TODO: remove
     await User.create({
       username: 'admin',
       password: 'admin',

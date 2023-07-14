@@ -16,4 +16,14 @@ export class BranchService {
     await branch.save()
     return branch
   }
+
+  async update(id: number, input: BranchInput) {
+    const branch = await Branch.findOneBy({ id })
+    if (!branch) {
+      throw new Error('Branch not found')
+    }
+    Object.assign(branch, input)
+    await branch.save()
+    return branch
+  }
 }

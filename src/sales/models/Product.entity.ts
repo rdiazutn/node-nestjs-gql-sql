@@ -4,26 +4,26 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { SaleDetail } from './SaleDetail.entity';
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+} from 'typeorm'
+import { SaleDetail } from './SaleDetail.entity'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @Entity()
 @ObjectType()
 export class Product extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
-  id: string;
+  id: string
 
   @Field(() => String)
   @Column()
-  code: string;
+  code: string
 
   @Field(() => String)
   @Column()
-  name: string;
+  name: string
 
   @OneToMany(() => SaleDetail, (detail) => detail.product)
   @Field(() => [SaleDetail])
-  saleDetails: SaleDetail[];
+  saleDetails: SaleDetail[]
 }
