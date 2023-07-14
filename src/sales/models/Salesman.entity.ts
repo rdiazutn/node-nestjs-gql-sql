@@ -5,6 +5,7 @@ import {
   BaseEntity,
   ManyToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm'
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql'
 import { Branch } from './Branch.entity'
@@ -23,7 +24,12 @@ export class Salesman extends BaseEntity {
 
   @Field(() => Branch)
   @ManyToOne(() => Branch, (branch) => branch.salesmans, { nullable: false })
+  @JoinColumn({ name: 'branchId' })
   branch: Branch
+
+  @Field(() => Number)
+  @Column()
+  branchId: number
 
   @OneToMany(() => Sale, (sale) => sale.salesman)
   @Field(() => [Sale])

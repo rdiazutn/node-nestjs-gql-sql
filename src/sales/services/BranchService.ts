@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Branch, BranchInput } from '../models/Branch.entity'
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Cache } from 'cache-manager'
+import { In } from 'typeorm'
 
 @Injectable()
 export class BranchService {
@@ -9,6 +10,10 @@ export class BranchService {
 
   async findAll(): Promise<Branch[]> {
     return await Branch.find()
+  }
+
+  async findAllByIds(ids: number[]): Promise<Branch[]> {
+    return await Branch.findBy({ id: In(ids) })
   }
 
   async create(input: BranchInput) {

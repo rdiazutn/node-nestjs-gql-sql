@@ -23,8 +23,7 @@ export class BranchResolver {
 
   @ResolveField(() => [Salesman], { name: 'salesmans' })
   getSalesmans(@Parent() branch: Branch) {
-    console.log('A request')
-    return this.salesmanService.findAllBy({ branch: { id: branch.id } })
+    return this.salesmanService.findAllByBranchId(branch.id)
   }
 
   @UseGuards(AuthorizeGuard)
