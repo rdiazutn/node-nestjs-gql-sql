@@ -15,7 +15,7 @@ import { RolesGuard } from 'src/guards/RolesGuard'
 import { Salesman } from '../models/Salesman.entity'
 import { SalesmanService } from '../services/SalesmanService'
 import { BranchPage, PaginationArgs } from '../utils/PaginationArgs'
-import { SalesModuleContext } from '../overrides/SalesModuleContext'
+import { SalesModuleContext } from '../loaders/overrides/SalesModuleContext'
 
 @Resolver(() => Branch)
 export class BranchResolver {

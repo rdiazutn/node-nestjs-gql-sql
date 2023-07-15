@@ -4,7 +4,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { GraphQLModule } from '@nestjs/graphql'
 import UserService from './services/UserService'
-import { join } from 'path'
 
 @Module({
   imports: [

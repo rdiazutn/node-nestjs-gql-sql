@@ -1,11 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
-import { User } from 'src/users/models/User.entity'
-import { verifyJwt } from 'src/users/security/Jwt'
-import { createSalesmanLoader } from '../loaders/SalesmanLoader'
+import { createSalesmanLoader } from '../SalesmanLoader'
 import { SalesModuleContext } from '../overrides/SalesModuleContext'
 
 @Injectable()
-export class SalesGuard implements CanActivate {
+export class SalesLoaderGuard implements CanActivate {
   async canActivate(fullContext: ExecutionContext) {
     const context = fullContext
       .getArgs()
@@ -13,7 +11,7 @@ export class SalesGuard implements CanActivate {
     if (!context) {
       throw new Error('Request OBJECT not found')
     }
-    // Add newly created loaders here
+    // 3.Loader instructions: Add newly created loaders here
     context.salesmanLoader = createSalesmanLoader()
     return true
   }

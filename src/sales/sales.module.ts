@@ -6,7 +6,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { BranchService } from './services/BranchService'
 import { SalesmanService } from './services/SalesmanService'
 import { SalesmanResolver } from './resolvers/SalesmanResolver'
-import { SalesGuard } from './guards/SalesGuard'
+import { SalesLoaderGuard } from './loaders/guards/SalesLoaderGuard'
 import { APP_GUARD } from '@nestjs/core'
 
 // TODO: add global guard
@@ -25,7 +25,7 @@ import { APP_GUARD } from '@nestjs/core'
   providers: [
     {
       provide: APP_GUARD,
-      useClass: SalesGuard,
+      useClass: SalesLoaderGuard,
     },
     SalesmanResolver,
     BranchResolver,
