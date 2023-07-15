@@ -24,7 +24,7 @@ export class Branch extends BaseEntity {
   name: string
 
   @OneToMany(() => Salesman, (salesman) => salesman.branch)
-  @Field(() => [Salesman])
+  @Field(() => [Salesman], { nullable: 'itemsAndList' })
   salesmans: Salesman[]
 }
 

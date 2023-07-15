@@ -13,6 +13,7 @@ import { AuthorizeGuard } from 'src/guards/AuthorizeGuard'
 import { RolesGuard } from 'src/guards/RolesGuard'
 import { Salesman } from '../models/Salesman.entity'
 import { SalesmanService } from '../services/SalesmanService'
+import { BranchPage, PaginationArgs } from '../utils/PaginationArgs'
 
 @Resolver(() => Branch)
 export class BranchResolver {
@@ -21,15 +22,19 @@ export class BranchResolver {
     @Inject(SalesmanService) private salesmanService: SalesmanService,
   ) {}
 
-  @ResolveField(() => [Salesman], { name: 'salesmans' })
+  @ResolveField(() => [Salesman], {
+    name: 'salesmans',
+    nullable: 'itemsAndList',
+  })
   getSalesmans(@Parent() branch: Branch) {
+    console.log('getSalesmans', branch)
     return this.salesmanService.findAllByBranchId(branch.id)
   }
 
   @UseGuards(AuthorizeGuard)
-  @Query(() => [Branch])
-  branches() {
-    return this.branchService.findAll()
+  @Query(() => BranchPage)
+  branches(@Args() paginationArgs: PaginationArgs) {
+    return this.branchService.findAll(paginationArgs)
   }
 
   @UseGuards(AuthorizeGuard, new RolesGuard(['ADMIN']))

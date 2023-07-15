@@ -2,18 +2,20 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Branch, BranchInput } from '../models/Branch.entity'
 import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { Cache } from 'cache-manager'
-import { In } from 'typeorm'
+import { BranchPage, PaginationArgs } from '../utils/PaginationArgs'
 
 @Injectable()
 export class BranchService {
   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
-  async findAll(): Promise<Branch[]> {
-    return await Branch.find()
-  }
-
-  async findAllByIds(ids: number[]): Promise<Branch[]> {
-    return await Branch.findBy({ id: In(ids) })
+  async findAll(
+    paginationArgs: PaginationArgs = { skip: 0, take: 20 },
+  ): Promise<BranchPage> {
+    const [data, total] = await Branch.findAndCount({
+      skip: paginationArgs.skip,
+      take: paginationArgs.take,
+    })
+    return new BranchPage(data, total, paginationArgs.skip, paginationArgs.take)
   }
 
   async create(input: BranchInput) {
