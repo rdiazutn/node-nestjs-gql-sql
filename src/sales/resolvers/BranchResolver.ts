@@ -1,5 +1,6 @@
 import {
   Args,
+  Context,
   Mutation,
   Parent,
   Query,
@@ -14,6 +15,7 @@ import { RolesGuard } from 'src/guards/RolesGuard'
 import { Salesman } from '../models/Salesman.entity'
 import { SalesmanService } from '../services/SalesmanService'
 import { BranchPage, PaginationArgs } from '../utils/PaginationArgs'
+import { SalesModuleContext } from '../overrides/SalesModuleContext'
 
 @Resolver(() => Branch)
 export class BranchResolver {
@@ -26,9 +28,15 @@ export class BranchResolver {
     name: 'salesmans',
     nullable: 'itemsAndList',
   })
-  getSalesmans(@Parent() branch: Branch) {
-    console.log('getSalesmans', branch)
-    return this.salesmanService.findAllByBranchId(branch.id)
+  getSalesmans(
+    @Parent() branch: Branch,
+    @Context() context: SalesModuleContext,
+  ) {
+    console.log('getSalesmans', context)
+    return this.salesmanService.findAllByBranchId(
+      branch.id,
+      context.salesmanLoader,
+    )
   }
 
   @UseGuards(AuthorizeGuard)
