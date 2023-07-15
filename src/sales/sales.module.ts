@@ -6,6 +6,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { BranchService } from './services/BranchService'
 import { SalesmanService } from './services/SalesmanService'
 import { SalesmanResolver } from './resolvers/SalesmanResolver'
+import { SalesGuard } from './guards/SalesGuard'
+import { APP_GUARD } from '@nestjs/core'
 
 // TODO: add global guard
 @Module({
@@ -16,9 +18,19 @@ import { SalesmanResolver } from './resolvers/SalesmanResolver'
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
       sortSchema: true,
+      // NEED TO ALWAYS HAVE THE SAME CONTEXT ON EVERY MODULE
       context: ({ req, res }) => ({ req, res }),
     }),
   ],
-  providers: [SalesmanResolver, BranchResolver, BranchService, SalesmanService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: SalesGuard,
+    },
+    SalesmanResolver,
+    BranchResolver,
+    BranchService,
+    SalesmanService,
+  ],
 })
 export class SalesModule {}
