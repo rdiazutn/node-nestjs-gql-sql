@@ -10,7 +10,7 @@ export default class UserService {
 
   async login(input: LoginInput): Promise<string> {
     const loginError = 'Invalid username or password'
-    // TODO: remove
+    // IMPORTANT: I leave this here for you to play with it
     await User.create({
       username: 'admin',
       password: 'admin',
@@ -24,7 +24,6 @@ export default class UserService {
     if (!passwordIsValid) {
       throw new Error(loginError)
     }
-    // TODO: move to Redis
     const token = signJwt(user.toString())
     user.token = token
     await user.save()
