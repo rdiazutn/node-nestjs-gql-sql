@@ -10,7 +10,6 @@ import { SalesLoaderGuard } from './loaders/guards/SalesLoaderGuard'
 import { APP_GUARD } from '@nestjs/core'
 import { ComplexityPlugin } from 'src/plugins/ComplexityPlugin'
 
-// TODO: add global guard
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({

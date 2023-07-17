@@ -5,9 +5,9 @@ import { verifyJwt } from 'src/users/security/Jwt'
 @Injectable()
 export class RolesGuard implements CanActivate {
   private roles: string[]
-  // TODO accept multiple ways of roles
-  constructor(roles: string[]) {
-    this.roles = roles
+
+  constructor(roles: string[] | string) {
+    this.roles = roles instanceof Array ? roles : [roles]
   }
 
   canActivate(fullContext: ExecutionContext) {
