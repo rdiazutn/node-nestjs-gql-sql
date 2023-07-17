@@ -27,6 +27,8 @@ export class BranchResolver {
   @ResolveField(() => [Salesman], {
     name: 'salesmans',
     nullable: 'itemsAndList',
+    // Check ComplexityPlugin.ts
+    complexity: 10,
   })
   getSalesmans(
     @Parent() branch: Branch,

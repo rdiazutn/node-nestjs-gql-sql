@@ -8,6 +8,7 @@ import { SalesmanService } from './services/SalesmanService'
 import { SalesmanResolver } from './resolvers/SalesmanResolver'
 import { SalesLoaderGuard } from './loaders/guards/SalesLoaderGuard'
 import { APP_GUARD } from '@nestjs/core'
+import { ComplexityPlugin } from 'src/plugins/ComplexityPlugin'
 
 // TODO: add global guard
 @Module({
@@ -27,6 +28,7 @@ import { APP_GUARD } from '@nestjs/core'
       provide: APP_GUARD,
       useClass: SalesLoaderGuard,
     },
+    ComplexityPlugin,
     SalesmanResolver,
     BranchResolver,
     BranchService,
